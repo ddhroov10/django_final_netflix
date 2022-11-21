@@ -17,9 +17,15 @@
         </div>
 
         <div>
-            <a href="login.html" class='bg-primary_red py-1 px-3 text-white md:text-lg rounded-md'>
+            {% if request.user.is_authenticated %}
+            <a href="{% url 'account_logout' %}" class='bg-primary_red py-1 px-3 text-white md:text-lg rounded-md'>
+                Logout
+            </a>
+            {% else %}
+            <a href="{% url 'account_login' %}" class='bg-primary_red py-1 px-3 text-white md:text-lg rounded-md'>
                 Sign In 
             </a>
+            {% endif %}
         </div>
     </nav>
 
