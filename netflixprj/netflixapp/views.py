@@ -73,3 +73,18 @@ class MovieDetail(View):
             return render(request, 'moviedetail.html', context)
         except Movie.DoesNotExist:
             return redirect('netflixapp:profile-list')
+
+method_decorator(login_required, name='dispatch')
+class PlayMovie(View):
+    def get(self, request, movie_id, *args, **kwargs):
+        try:
+            movie = Movie.objects.get(uuid=movie_id)
+            movie = movie.video.values()
+            
+            context = {
+                'movie':list(movie)
+            }
+
+            return render(request, 'playmovie.html', context)
+        except Movie.DoesNotExist:
+            return redirect('netflixapp:profile-list')
