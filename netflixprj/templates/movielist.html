@@ -13,20 +13,14 @@
                 </p>
                 <div class="flex my-4">
 
-                    <button class="flex items-center bg-white py-2 px-5 rounded-md">
+                    <a href="{% url 'netflixapp:play-movie' movie_id='3d06c99b-2362-4e8f-812b-8921004dc530' %}" class="flex items-center bg-red py-2 px-5 rounded-md">
                         <ion-icon name="play" class="text-2xl"></ion-icon>
                         <span class="ml-3 font-medium">
                             Play
                         </span>
-                    </button>
+                    </a>
     
-                    <button class="ml-4 text-white flex items-center bg-gray-500 bg-opacity-80 py-2 px-5 rounded-md">
-                       
-                        <ion-icon name="information-circle-outline" class="text-2xl" ></ion-icon>
-                        <span class="ml-3 font-medium">
-                            More Info
-                        </span>
-                    </button>
+
                 </div>
             </div>
         </section> 
@@ -36,6 +30,9 @@
                     Popular on Netflix
                 </h2>
                 <div class="flex justify-center  items-center min-w-full  movie_lis">
+
+                    <!-- Refering to movies from views.py and the class MovieList -->
+                    <!-- movie_id is a parameter of MovieDetail which is called here with value of movie_id = movie.uuid -->
                     {% for movie in movies %}
                     <a href = "{% url 'netflixapp:movie-detail' movie_id=movie.uuid %}">
                         <div class=" h-40 m-4  bg-blue-500 flex-shrink-0 rounded-md cursor-pointer w-40">
