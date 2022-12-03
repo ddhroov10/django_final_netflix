@@ -15,7 +15,7 @@ services:
     container_name: netflixprj_nginx
     restart: unless-stopped
     ports:
-      - "80:80"
+      - "8003:80"
     volumes:
       - "./config/nginx:/etc/nginx/conf.d"
       - "./netflixprj/static:/static"
