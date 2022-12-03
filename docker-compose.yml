@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  web:
+    container_name: netflixprj_django
+    build: .
+    command: bash -c "python manage.py collectstatic --no-input && python manage.py makemigrations && python manage.py migrate && gunicorn --workers 3 --bind :80 netflixprj.wsgi:application"
+    restart: unless-stopped
+    volumes:
+      - "./netflixprj:/src"
+      - "/etc/localtime:/etc/localtime:ro"
+      - "/etc/timezone:/etc/timezone:ro"
+  nginx:
+    image: nginx:latest
+    container_name: netflixprj_nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    volumes:
+      - "./config/nginx:/etc/nginx/conf.d"
+      - "./netflixprj/static:/static"
+      - "/etc/localtime:/etc/localtime:ro"
+      - "/etc/timezone:/etc/timezone:ro"
+    depends_on:
+      - "web"
