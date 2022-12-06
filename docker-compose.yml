@@ -4,7 +4,7 @@ services:
   web:
     container_name: netflixprj_django
     build: .
-    command: bash -c "python manage.py collectstatic --no-input && python manage.py makemigrations && python manage.py migrate && gunicorn --workers 3 --bind :80 netflixprj.wsgi:application"
+    command: bash -c "python manage.py collectstatic --no-input && python manage.py makemigrations && python manage.py migrate --run-syncdb && gunicorn --workers 3 --bind :80 netflixprj.wsgi:application"
     restart: unless-stopped
     volumes:
       - "./netflixprj:/src"
