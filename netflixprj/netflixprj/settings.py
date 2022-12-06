@@ -152,3 +152,7 @@ ACCOUNT_USERNAME_REQUIRED=False
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+CSRF_COOKIE_DOMAIN = "netflixprj.etashtyagi.tk"
+CSRF_TRUSTED_ORIGINS = ['https://netflixprj.etashtyagi.tk']
+CSRF_COOKIE_SECURE = True
