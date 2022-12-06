@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-)cf1@^t=6m7nzm0$4t4j0&y2so*q*g6*mdb^ci_duqi-(u3x5+'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['192.168.51.25', '127.0.0.1', 'localhost', '0.0.0.0', "netflixprj.etashtyagi.tk"]
 
