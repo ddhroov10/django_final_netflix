@@ -3,23 +3,29 @@ version: '3'
 services:
   web:
     container_name: netflixprj_django
-    build: .
-    command: bash -c "python manage.py collectstatic --no-input && python manage.py makemigrations && python manage.py migrate --run-syncdb && gunicorn --workers 3 --bind :80 netflixprj.wsgi:application"
-    restart: unless-stopped
+    build: ./netflixprj
+    command: bash -c "python manage.py collectstatic --no-input && python manage.py makemigrations && python manage.py migrate --run-syncdb && gunicorn --workers 3 --bind :8000 netflixprj.wsgi:application"
+    restart: always
+    ports:
+      - 8000:8000
     volumes:
-      - "./netflixprj:/src"
-      - "/etc/localtime:/etc/localtime:ro"
-      - "/etc/timezone:/etc/timezone:ro"
+      - media-volume:/src/media
+      - static-volume:/src/static
+      - sqlite3-volume:/src/db
   nginx:
     image: nginx:latest
     container_name: netflixprj_nginx
-    restart: unless-stopped
+    build: ./nginx
+    restart: always
     ports:
-      - "8003:80"
+      - 8443:443
+      - 8080:80
     volumes:
-      - "./config/nginx:/etc/nginx/conf.d"
-      - "./netflixprj/static:/static"
-      - "/etc/localtime:/etc/localtime:ro"
-      - "/etc/timezone:/etc/timezone:ro"
+      - static-volume:/static:ro
     depends_on:
-      - "web"
+      - web
+
+volumes:
+  media-volume:
+  static-volume:
+  sqlite3-volume:
