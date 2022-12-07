@@ -17,8 +17,8 @@ services:
     container_name: netflixprj_nginx
     restart: always
     ports:
-      - 8443:443
       - 8080:80
+      - 8443:80
     volumes:
       - static-volume:/static:ro
     depends_on:

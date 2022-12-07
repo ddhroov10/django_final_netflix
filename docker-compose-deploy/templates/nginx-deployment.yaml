@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: ../kompose convert -f docker-compose-deploy.yml -c
+    kompose.version: 1.26.0 (40646f47)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: nginx
+  name: nginx
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: nginx
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: ../kompose convert -f docker-compose-deploy.yml -c
+        kompose.version: 1.26.0 (40646f47)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: nginx
+    spec:
+      containers:
+        - image: netflixprj.azurecr.io/netflixprj-ngnix:latest
+          name: netflixprj-nginx
+          ports:
+            - containerPort: 80
+          resources: {}
+          volumeMounts:
+            - mountPath: /static
+              name: static-volume
+              readOnly: true
+      restartPolicy: Always
+      volumes:
+        - name: static-volume
+          persistentVolumeClaim:
+            claimName: static-volume
+            readOnly: true
+status: {}
