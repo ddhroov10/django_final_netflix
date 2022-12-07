@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: ../kompose convert -f docker-compose-deploy.yml
+    kompose.version: 1.26.0 (40646f47)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: web
+  name: web
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: web
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: ../kompose convert -f docker-compose-deploy.yml
+        kompose.version: 1.26.0 (40646f47)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: web
+    spec:
+      containers:
+        - args:
+            - bash
+            - -c
+            - python manage.py collectstatic --no-input && python manage.py makemigrations && python manage.py migrate --run-syncdb && gunicorn --workers 3 --bind :8000 netflixprj.wsgi:application
+          image: netflixprj.azurecr.io/netflixprj-django:latest
+          name: netflixprj-django
+          ports:
+            - containerPort: 8000
+          resources: {}
+          volumeMounts:
+            - mountPath: /src/media
+              name: media-volume
+            - mountPath: /src/static
+              name: static-volume
+            - mountPath: /src/db
+              name: sqlite3-volume
+      restartPolicy: Always
+      volumes:
+        - name: media-volume
+          persistentVolumeClaim:
+            claimName: media-volume
+        - name: static-volume
+          persistentVolumeClaim:
+            claimName: static-volume
+        - name: sqlite3-volume
+          persistentVolumeClaim:
+            claimName: sqlite3-volume
+status: {}
