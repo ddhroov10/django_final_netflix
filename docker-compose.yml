@@ -13,9 +13,8 @@ services:
       - static-volume:/src/static
       - sqlite3-volume:/src/db
   nginx:
-    image: nginx:latest
     container_name: netflixprj_nginx
-    build: ./nginx
+    build: ./custom_nginx
     restart: always
     ports:
       - 8443:443

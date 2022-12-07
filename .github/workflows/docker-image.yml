@@ -14,7 +14,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - name: Build django 
-      run: docker build ./netflixprj --file Dockerfile --tag netflixprj-django:$(date +%s)
+    - name: Build django
+      run: docker build netflixprj --file netflixprj/Dockerfile --tag netflixprj-django:$(date +%s)
     - name: Build nginx
-      run: docker build ./custom_nginx --file Dockerfile --tag netflixprj-ngnix:$(date +%s)
+      run: docker build custom_nginx --file custom_nginx/Dockerfile --tag netflixprj-ngnix:$(date +%s)
