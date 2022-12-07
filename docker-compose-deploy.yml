@@ -13,7 +13,7 @@ services:
       - static-volume:/src/static
       - sqlite3-volume:/src/db
   nginx:
-    image: netflixprj.azurecr.io/netflixprj-ngnix:latest
+    image: netflixprj.azurecr.io/netflixprj-nginx:latest
     container_name: netflixprj_nginx
     restart: always
     ports:
