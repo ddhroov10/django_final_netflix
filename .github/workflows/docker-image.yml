@@ -15,6 +15,16 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Build django
-      run: docker build netflixprj --file netflixprj/Dockerfile --tag netflixprj-django:$(date +%s)
+      run: docker build netflixprj --file netflixprj/Dockerfile --tag netflixprj.azurecr.io/netflixprj-django:$(date +%s)
     - name: Build nginx
-      run: docker build custom_nginx --file custom_nginx/Dockerfile --tag netflixprj-ngnix:$(date +%s)
+      run: docker build custom_nginx --file custom_nginx/Dockerfile --tag netflixprj.azurecr.io/netflixprj-ngnix:$(date +%s)
+    - name: Azure Registry Login
+      uses: azure/docker-login@v1
+      with:
+        login-server: netflixprj.azurecr.io
+        username: ${{ secrets.ACR_USERNAME }}
+        password: ${{ secrets.ACR_PASSWORD }}
+    - name: Azure registry push
+      run: |
+        docker push netflixprj.azurecr.io/netflixprj-django:$(date +%s)
+        docker push netflixprj.azurecr.io/netflixprj-nginx:$(date +%s)
