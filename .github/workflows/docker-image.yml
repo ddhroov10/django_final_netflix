@@ -24,4 +24,4 @@ jobs:
     - name: Azure registry push
       run: |
         docker push netflixprj.azurecr.io/netflixprj-django:latest
-        docker push netflixprj.azurecr.io/netflixprj-nginx:latest
+        docker push netflixprj.azurecr.io/netflixprj-ngnix:latest
