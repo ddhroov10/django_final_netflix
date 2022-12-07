@@ -7,11 +7,8 @@ on:
     branches: [ "containerized" ]
 
 jobs:
-
   build:
-
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v3
     - name: Build django
@@ -26,5 +23,5 @@ jobs:
         password: ${{ secrets.ACR_PASSWORD }}
     - name: Azure registry push
       run: |
-        docker push netflixprj.azurecr.io/netflixprj-django:$(date +%s)
-        docker push netflixprj.azurecr.io/netflixprj-nginx:$(date +%s)
+        docker push netflixprj.azurecr.io/netflixprj-django
+        docker push netflixprj.azurecr.io/netflixprj-nginx
