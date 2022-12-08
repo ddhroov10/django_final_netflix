@@ -4,15 +4,21 @@ services:
   web:
     image: netflixprj.azurecr.io/netflixprj-django:latest
     container_name: netflixprj_django
-    command: bash -c "python manage.py collectstatic --no-input && python manage.py makemigrations && python manage.py migrate --run-syncdb && gunicorn --workers 3 --bind :8000 netflixprj.wsgi:application"
     restart: always
-    ports:
-      - 80:8000
-      - 443:8000
     volumes:
       - media-volume:/src/media
       - static-volume:/src/static
       - sqlite3-volume:/src/db
+  nginx:
+    depends_on:
+      - web
+    image: netflixprj.azurecr.io/netflixprj-nginx:latest
+    container_name: netflixprj_nginx
+    restart: always
+    ports:
+      - 8000:80
+    volumes:
+      - static-volume:/static:ro
 volumes:
   media-volume:
   static-volume:
