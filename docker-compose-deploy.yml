@@ -18,7 +18,7 @@ services:
     ports:
       - 8000:80
     volumes:
-      - static-volume:/static:ro
+      - static-volume:/static
 volumes:
   media-volume:
   static-volume:
