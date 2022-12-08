@@ -7,7 +7,7 @@ services:
     command: bash -c "python manage.py collectstatic --no-input && python manage.py makemigrations && python manage.py migrate --run-syncdb && gunicorn --workers 3 --bind :8000 netflixprj.wsgi:application"
     restart: always
     ports:
-      - 8000:8000
+      - 80:8000
     volumes:
       - media-volume:/src/media
       - static-volume:/src/static
@@ -17,8 +17,8 @@ services:
     build: ./custom_nginx
     restart: always
     ports:
-      - 8443:443
-      - 8080:80
+      - 80:80
+      - 443:80
     volumes:
       - static-volume:/static:ro
     depends_on:
