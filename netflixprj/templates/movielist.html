@@ -24,17 +24,17 @@
                 </div>
             </div>
         </section> 
-        <section class='bg-primary_black  min-h-screen flex justify-center py-10'>
+        <!-- <section class='bg-primary_black  min-h-screen flex justify-center py-10'> -->
             <div class="p-8 w-10/12 relative" >
                 <h2 class="text-gray-200 text-2xl font-medium">
-                    Popular on Netflix
+                    Blockbuster movies
                 </h2>
                 <div class="flex justify-center  items-center min-w-full  movie_lis">
 
                     <!-- Refering to movies from views.py and the class MovieList -->
                     <!-- movie_id is a parameter of MovieDetail which is called here with value of movie_id = movie.uuid -->
                     {% for movie in movies %}
-                    <a href = "{% url 'netflixapp:movie-detail' movie_id=movie.uuid %}">
+                    <a href = "{% url 'netflixapp:movie-detail' movie_id=movie.uuid movie_type='Blockbuster' %}">
                         <div class=" h-40 m-4  bg-blue-500 flex-shrink-0 rounded-md cursor-pointer w-40">
                             <img src="{{movie.image.url}}" class="w-full h-full " alt="">
                         </div>    
@@ -42,7 +42,42 @@
                     {% endfor %}
                 </div>
             </div>
-        </section>
-        
+        <!-- </section> -->
+        <!-- <section class='bg-primary_black  min-h-screen flex justify-center py-10'> -->
+            <div class="p-8 w-10/12 relative" >
+                <h2 class="text-gray-200 text-2xl font-medium">
+                    Bollywood Sweethearts
+                </h2>
+                <div class="flex justify-center  items-center min-w-full  movie_lis">
+
+                    <!-- Refering to movies from views.py and the class MovieList -->
+                    <!-- movie_id is a parameter of MovieDetail which is called here with value of movie_id = movie.uuid -->
+                    {% for movie in moviesBollywood %}
+                    <a href = "{% url 'netflixapp:movie-detail' movie_id=movie.uuid movie_type='Bollywood' %}">
+                        <div class=" h-40 m-4  bg-blue-500 flex-shrink-0 rounded-md cursor-pointer w-40">
+                            <img src="{{movie.image.url}}" class="w-full h-full " alt="">
+                        </div>    
+                    </a>
+                    {% endfor %}
+                </div>
+            </div>
+        <!-- </section> -->
+            <div class="p-8 w-10/12 relative" >
+                <h2 class="text-gray-200 text-2xl font-medium">
+                    Comedy Movies
+                </h2>
+                <div class="flex justify-center  items-center min-w-full  movie_lis">
+
+                    <!-- Refering to movies from views.py and the class MovieList -->
+                    <!-- movie_id is a parameter of MovieDetail which is called here with value of movie_id = movie.uuid -->
+                    {% for movie in moviesComedy %}
+                    <a href = "{% url 'netflixapp:movie-detail' movie_id=movie.uuid movie_type='Comedy' %}">
+                        <div class=" h-40 m-4  bg-blue-500 flex-shrink-0 rounded-md cursor-pointer w-40">
+                            <img src="{{movie.image.url}}" class="w-full h-full " alt="">
+                        </div>    
+                    </a>
+                    {% endfor %}
+                </div>
+            </div>
     </main>
     {% endblock content %}

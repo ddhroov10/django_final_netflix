@@ -12,7 +12,6 @@
         const movie_data = JSON.parse(document.getElementById('movie_data').textContent);
         const url = new URL(location.href)
         const video_param = parseInt(url.searchParams.get('epi'))?parseInt(url.searchParams.get('epi')):0
-        // videoEl.setAttribute('src', `http://192.168.51.25:8000/media/${movie_data[video_param].file}`)
-        videoEl.setAttribute('src', `/media/${movie_data[video_param].file}`)
+        videoEl.setAttribute('src', `http://192.168.51.25:8000/media/${movie_data[video_param].file}`)
     </script>
 {% endblock content %}
